@@ -1,26 +1,15 @@
 import { sequelize } from "../db/index.js";
-import UserModel from "../models/User.js";
-import ProductModel from "../models/Product.js";
-import OrderModel from "../models/Order.js";
-import CategoryModel from "../models/Category.js";
+import models from "../models/index.js";
 
-//initialization
-const User = UserModel(sequelize);
-const Product = ProductModel(sequelize);
-const Order = OrderModel(sequelize);
-const Category = CategoryModel(sequelize);
-
-// Define associations
-Product.associate({ Category });
-Order.associate({ User });
+const { User, Product, Order, Category } = models;
 
 const runTests = async () => {
     try {
-        // Sync the database (force: true drops existing tables and re-creates them)
+        // Sync the database (NOTE!!! it will force: true drops existing tables and re-creates them)
         await sequelize.sync({ force: true });
         console.log("Database synchronized.");
 
-        // Test User model
+        // test User model here
         const user = await User.create(
             {
                 name: "Test User",
@@ -31,7 +20,7 @@ const runTests = async () => {
         );
         console.log("User created:", user.toJSON());
 
-        // Test Category and Product models
+        // test Category and Product models here
         const category = await Category.create({ name: "Books" });
         const product = await Product.create({
             name: "Book Title",
@@ -42,7 +31,7 @@ const runTests = async () => {
         });
         console.log("Product created:", product.toJSON());
 
-        // Test Order model with valid product array
+        // test Order model with valid product array
         const order = await Order.create({
             userId: user.id,
             products: [{ productId: product.id, quantity: 2 }],

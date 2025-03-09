@@ -79,6 +79,10 @@ This script will:
 Expected output:
 
 ```
+Model User loaded successfully.
+Model Product loaded successfully.
+Model Order loaded successfully.
+Model Category loaded successfully.
 Database synchronized.
 User created: { id: 1, name: 'Test User', email: 'test@example.com' }
 Product created: {
