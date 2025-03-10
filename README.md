@@ -54,7 +54,7 @@ This project is an eCommerce application built with Node.js, Express, and Sequel
 Before starting the server, verify your database connection by running:
 
 ```bash
-node -r dotenv/config test/testDb.js
+npm run test-db
 ```
 
 If successful, you'll see output similar to:
@@ -65,11 +65,17 @@ If successful, you'll see output similar to:
 
 ### Testing Models
 
-To test your models, run:
+To test your models, follow these steps:
 
-```bash
-node -r dotenv/config test/testModels.js
-```
+1. **Create a `.env.test` file**  
+   Ensure you have a `.env.test` file set up with the necessary environment variables, using your local database for testing.
+
+2. **Run the test script**  
+   Execute the following command:
+
+    ```bash
+    npm run test-models
+    ```
 
 This script will:
 

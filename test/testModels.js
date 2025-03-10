@@ -6,23 +6,23 @@ const { User, Product, Order, Category } = models;
 
 const runTests = async () => {
     try {
-        // Sync the database (NOTE!!! it will force: true drops existing tables and re-creates them)
-        await sequelize.sync({ force: true });
-        console.log('Database synchronized.');
 
-        // test User model here
+        await sequelize.sync({ alter: true });
+        console.log("Database synchronized.");
+
         const user = await User.create(
             {
-                name: 'Test User',
-                email: 'Test@Example.com', // will be converted to lowercase by hook
-                password: 'mysecretpassword',
+                name: "Test User",
+                email: "Test@Example.com",
+                password: "mysecretpassword",
             },
-            { individualHooks: true } // ensure hooks run on create
+            { individualHooks: true }
         );
         console.log('User created:', user.toJSON());
 
         // test Category and Product models here
-        const category = await Category.create({ name: 'Books' });
+       
+        const category = await Category.create({ name: "Books" });
         const product = await Product.create({
             name: 'Book Title',
             description:
@@ -32,7 +32,6 @@ const runTests = async () => {
         });
         console.log('Product created:', product.toJSON());
 
-        // test Order model with valid product array
         const order = await Order.create({
             userId: user.id,
             products: [{ productId: product.id, quantity: 2 }],
