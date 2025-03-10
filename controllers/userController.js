@@ -1,8 +1,7 @@
 import { sequelize, connectDB } from '../db/index.js';
-import { UserModel } from '../models/user.js';
+import models from '../models/index.js';
 
-const user = UserModel(sequelize);
-
+const { User } = models;
 export const getAllUsers = async (req, res) => {
     try {
         const allUsers = await user.findAll();
