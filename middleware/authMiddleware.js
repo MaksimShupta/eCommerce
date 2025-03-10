@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
-import { User } from '../models'; // Adjust path as needed
+import models from '../models/index.js';
+
+const { User } = models;
 
 const authMiddleware = async (req, res, next) => {
     // Token Extraction

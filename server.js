@@ -1,13 +1,17 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { connectDB } from './db/index.js';
+import userRoutes from './router/userRouter.js';
+import errorHandler from './middleware/errorHandler.js';
+import limiter from './middleware/limiter.js';
+import logger from './middleware/logger.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 5001;
 
 const app = express();
+
 // Middlewares
-app.use(express.json());
 app.use(express.json());
 app.use(logger);
 app.use(limiter);
@@ -16,6 +20,7 @@ app.use(limiter);
 app.get('/', (req, res) => {
     res.send('hello world from nodejs!!!!!');
 });
+app.use('/api/users', userRoutes);
 
 // Error Handling (must be the last middleware)
 app.use(errorHandler);
@@ -26,7 +31,6 @@ app.use(errorHandler);
 // });
 
 // Start the server
-app.listen(port, () => console.log(`Server is running on port ${port}`));
 
 const startServer = async () => {
     await connectDB();
