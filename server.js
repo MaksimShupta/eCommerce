@@ -23,10 +23,6 @@ app.use(limiter);
 app.get("/", (req, res) => {
   res.send("hello world from nodejs!!!!!");
 });
-app.use('/api/users', userRoutes);
-
-// Error Handling (must be the last middleware)
-app.use(errorHandler);
 
 // Example: Protect a route
 // app.get("/profile", authMiddleware, (req, res) => {
@@ -39,6 +35,9 @@ app.use("/users", userRouter);
 app.use("/products", productRouter);
 app.use("/orders", orderRouter);
 app.use("/categories", categoryRouter);
+
+// Error Handling (must be the last middleware)
+app.use(errorHandler);
 
 const startServer = async () => {
   await connectDB();
