@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import { User } from '../models'; // Adjust path as needed
 
 const authMiddleware = async (req, res, next) => {
+    // Token Extraction
     const token = req.header('Authorization');
     if (!token) {
         return res
@@ -10,11 +11,14 @@ const authMiddleware = async (req, res, next) => {
     }
 
     try {
+        // Token Validation
         const decoded = jwt.verify(
             token.replace('Bearer ', ''),
             process.env.JWT_SECRET
         );
+        // User Fetching
         req.user = await User.findByPk(decoded.id);
+        // Error Handling
         if (!req.user) {
             return res.status(404).json({ message: 'User not found' });
         }
