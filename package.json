@@ -4,7 +4,10 @@
     "main": "index.js",
     "scripts": {
         "start": "node server.js",
-        "dev": "node -r dotenv/config --watch server.js"
+        "dev": "node -r dotenv/config --watch server.js",
+        "sync": "node db/sync.js",
+        "test-models": "NODE_ENV=test node test/testBoot.js",
+        "test-db": "NODE_ENV=test node test/testDb.js"
     },
     "keywords": [],
     "author": "",
