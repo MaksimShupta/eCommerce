@@ -5,7 +5,9 @@
     "scripts": {
         "start": "node server.js",
         "dev": "node --watch server.js",
-        "sync": "node db/sync.js"
+        "sync": "node db/sync.js",
+        "test-models": "NODE_ENV=test node test/testBoot.js",
+        "test-db": "NODE_ENV=test node test/testDb.js"
     },
     "keywords": [],
     "author": "",
