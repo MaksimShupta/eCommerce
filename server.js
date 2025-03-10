@@ -1,7 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { connectDB } from './db/index.js';
+
 import userRoutes from './router/userRouter.js';
+import productRoutes from './router/productRouter.js';
+
 import errorHandler from './middleware/errorHandler.js';
 import limiter from './middleware/limiter.js';
 import logger from './middleware/logger.js';
@@ -21,7 +24,7 @@ app.get('/', (req, res) => {
     res.send('hello world from nodejs!!!!!');
 });
 app.use('/api/users', userRoutes);
-
+app.use('/api/products', productRoutes);
 // Error Handling (must be the last middleware)
 app.use(errorHandler);
 
