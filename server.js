@@ -1,10 +1,10 @@
-import express from "express";
-import dotenv from "dotenv";
-import { connectDB } from "./db/index.js";
-import categoryRouter from "./router/categoryRouter.js";
-import orderRouter from "./router/orderRouter.js";
-import productRouter from "./router/productRouter.js";
-import userRouter from "./router/userRouter.js";
+import express from 'express';
+import dotenv from 'dotenv';
+import { connectDB } from './db/index.js';
+import categoryRouter from './router/categoryRouter.js';
+import orderRouter from './router/orderRouter.js';
+import productRouter from './router/productRouter.js';
+import userRouter from './router/userRouter.js';
 
 import errorHandler from './middleware/errorHandler.js';
 import limiter from './middleware/limiter.js';
@@ -20,8 +20,8 @@ app.use(express.json());
 app.use(logger);
 app.use(limiter);
 
-app.get("/", (req, res) => {
-  res.send("hello world from nodejs!!!!!");
+app.get('/', (req, res) => {
+    res.send('hello world from nodejs!!!!!');
 });
 
 // Example: Protect a route
@@ -31,19 +31,21 @@ app.get("/", (req, res) => {
 
 // Start the server
 
-app.use("/users", userRouter);
-app.use("/products", productRouter);
-app.use("/orders", orderRouter);
-app.use("/categories", categoryRouter);
+app.use('/api/users', userRouter);
+app.use('/api/products', productRouter);
+app.use('/api/orders', orderRouter);
+app.use('/api/categories', categoryRouter);
 
 // Error Handling (must be the last middleware)
 app.use(errorHandler);
 
 const startServer = async () => {
-  await connectDB();
-  app.listen(PORT, () =>
-    console.log(`server running on port ${PORT} ->  http://localhost:${PORT}/`)
-  );
+    await connectDB();
+    app.listen(PORT, () =>
+        console.log(
+            `server running on port ${PORT} ->  http://localhost:${PORT}/`
+        )
+    );
 };
 
 startServer();
