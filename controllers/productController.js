@@ -1,11 +1,10 @@
-import { sequelize, connectDB } from '../db/index.js';
 import models from '../models/index.js';
+const { Product } = models;
 
-const { product } = models;
 export const getAllProducts = async (req, res) => {
     try {
-        console.log('hey product:', product);
-        const products = await product.findAll();
+        console.log('hey Product:', Product);
+        const products = await Product.findAll();
         res.status(200).json({ success: true, data: products });
     } catch (error) {
         console.error('error by fetching all products:', error);
@@ -16,8 +15,8 @@ export const getAllProducts = async (req, res) => {
 export const createProduct = async (req, res) => {
     try {
         const { name, description, price, categoryId } = req.body;
-        console.log('product data:', name, description, price);
-        const newProduct = await product.create({
+        console.log('Product data:', name, description, price);
+        const newProduct = await Product.create({
             name,
             description,
             price,
@@ -26,7 +25,7 @@ export const createProduct = async (req, res) => {
 
         res.status(201).json({ success: true, data: newProduct });
     } catch (error) {
-        console.error('error by creating a product:', error);
+        console.error('error by creating a Product:', error);
         res.status(500).json({ success: false, error: error.message });
     }
 };
@@ -34,17 +33,17 @@ export const createProduct = async (req, res) => {
 export const getProductById = async (req, res) => {
     try {
         const { id } = req.params;
-        const searchedProduct = await product.findByPk(id);
+        const searchedProduct = await Product.findByPk(id);
         if (!searchedProduct) {
             return res
                 .status(404)
                 .json({ success: false, error: 'Product not found' });
         } else {
-            console.log('product data:', searchedProduct);
+            console.log('Product data:', searchedProduct);
             res.status(200).json({ success: true, data: searchedProduct });
         }
     } catch (error) {
-        console.error('error by getting a product:', error);
+        console.error('error by getting a Product:', error);
         res.status(500).json({ success: false, error: error.message });
     }
 };
@@ -53,7 +52,7 @@ export const updateProduct = async (req, res) => {
         const { id } = req.params;
         console.log('user id:', id);
         const { name, description, price, categoryId } = req.body;
-        const updatedProduct = await product.findByPk(id);
+        const updatedProduct = await Product.findByPk(id);
         if (!updatedProduct) {
             return res
                 .status(404)
@@ -68,7 +67,7 @@ export const updateProduct = async (req, res) => {
             res.status(200).json({ success: true, data: updatedProduct });
         }
     } catch (error) {
-        console.error('error by updating a product:', error);
+        console.error('error by updating a Product:', error);
         res.status(500).json({ success: false, error: error.message });
     }
 };
@@ -76,8 +75,8 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log('product id:', id);
-        const findProduct = await user.findByPk(id);
+        console.log('Product id:', id);
+        const findProduct = await Product.findByPk(id);
 
         if (!findProduct) {
             return res
@@ -85,10 +84,10 @@ export const deleteProduct = async (req, res) => {
                 .json({ success: false, error: 'Product not found' });
         }
         await findProduct.destroy({ where: { id } });
-        console.log('The product was succsessfully deleted!');
+        console.log('The Product was succsessfully deleted!');
         res.status(200).json({ success: true, data: findProduct });
     } catch (error) {
-        console.error('error by deleting a product:', error);
+        console.error('error by deleting a Product:', error);
         res.status(500).json({ success: false, error: error.message });
     }
 };

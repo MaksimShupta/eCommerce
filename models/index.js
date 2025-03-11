@@ -1,8 +1,8 @@
-import { sequelize } from "../db/index.js";
-import UserModel from "./User.js";
-import ProductModel from "./Product.js";
-import OrderModel from "./Order.js";
-import CategoryModel from "./Category.js";
+import { sequelize } from '../db/index.js';
+import UserModel from './User.js';
+import ProductModel from './Product.js';
+import OrderModel from './Order.js';
+import CategoryModel from './Category.js';
 
 // initialize models
 const User = UserModel(sequelize);
@@ -11,11 +11,11 @@ const Order = OrderModel(sequelize);
 const Category = CategoryModel(sequelize);
 
 // defining associations
-if (typeof Product.associate === "function") {
+if (typeof Product.associate === 'function') {
     Product.associate({ Category });
 }
 
-if (typeof Order.associate === "function") {
+if (typeof Order.associate === 'function') {
     Order.associate({ User });
 }
 
