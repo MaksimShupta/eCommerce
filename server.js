@@ -33,7 +33,7 @@ app.use('/api/orders', authMiddleware, orderRouter);
 app.use('/api/categories', authMiddleware, categoryRouter);
 app.use('/api/users', authMiddleware, userRouter); // Protect user routes too (except login route)
 
-// Error Handling (must be the last middleware)
+// Error Handling
 app.use(errorHandler);
 
 const startServer = async () => {
