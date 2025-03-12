@@ -1,30 +1,31 @@
-import { Router } from "express";
-import express from 'express';
-import { login } from '../controllers/userController.js'; // Import the login function
-import authMiddleware from '../middleware/authMiddleware.js'; // If needed for protected routes
-
+import { Router } from 'express';
 import {
-  getAllUsers,
-  createUser,
-  getUserById,
-  updateUser,
-  deleteUser,
-} from "../controllers/userController.js";
+    getAllUsers,
+    createUser,
+    getUserById,
+    updateUser,
+    deleteUser,
+    login,
+} from '../controllers/userController.js';
+import authMiddleware from '../middleware/authMiddleware.js';
+import validateSchema from '../middleware/validateSchema.js';
+import userSchema from '../validation/userSchema.js';
 
 const userRouter = Router();
 
-userRouter.get("/", getAllUsers);
-userRouter.get("/:id", getUserById);
-userRouter.post("/", createUser);
-userRouter.put("/:id", updateUser);
-userRouter.delete("/:id", deleteUser);
+// Routes with validation middleware
+userRouter.get('/', getAllUsers);
+userRouter.get('/:id', getUserById);
+userRouter.post('/', validateSchema(userSchema), createUser);
+userRouter.put('/:id', validateSchema(userSchema), updateUser);
+userRouter.delete('/:id', deleteUser);
 
-// Login route
-userRouter.post('/login', login); // The login route calls the login function from userController
+// Login route (No validation since it's not in the schema)
+userRouter.post('/login', login);
 
-// Example of a protected route (optional)
+// Protected route (example)
 userRouter.get('/profile', authMiddleware, (req, res) => {
-    res.json(req.user); // Respond with user data from the middleware
+    res.json(req.user);
 });
 
 export default userRouter;
