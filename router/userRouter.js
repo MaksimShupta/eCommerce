@@ -9,7 +9,7 @@ import {
 } from '../controllers/userController.js';
 import authMiddleware from '../middleware/authMiddleware.js';
 import validateSchema from '../middleware/validateSchema.js';
-import userSchema from '../validation/userSchema.js';
+import userSchema from '../schemas/user.js';
 
 const userRouter = Router();
 
@@ -19,9 +19,6 @@ userRouter.get('/:id', getUserById);
 userRouter.post('/', validateSchema(userSchema), createUser);
 userRouter.put('/:id', validateSchema(userSchema), updateUser);
 userRouter.delete('/:id', deleteUser);
-
-// Login route (No validation since it's not in the schema)
-userRouter.post('/login', login);
 
 // Protected route (example)
 userRouter.get('/profile', authMiddleware, (req, res) => {

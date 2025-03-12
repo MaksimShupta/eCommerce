@@ -7,7 +7,7 @@ import {
     deleteOrder,
 } from '../controllers/orderController.js';
 import validateSchema from '../middleware/validateSchema.js';
-import orderSchema from '../validation/orderSchema.js'; // Ensure this schema exists
+import orderSchema from '../schemas/order.js';
 
 const orderRouter = Router();
 
