@@ -24,8 +24,8 @@ export default (sequelize) => {
                 allowNull: true,
                 validate: {
                     len: {
-                        args: [50, 500],
-                        msg: "Description must be between 50 and 500 characters",
+                        args: [5, 500],
+                        msg: "Description must be between 5 and 500 characters",
                     },
                 },
             },
@@ -47,7 +47,7 @@ export default (sequelize) => {
                 allowNull: false,
 
                 references: {
-                    model: "Categories", // ensure this matches your Users table name
+                    model: "Categories", // ensure this matches your Categories table name
                     key: "id",
                 },
                 validate: {
