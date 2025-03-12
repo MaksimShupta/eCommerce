@@ -1,6 +1,6 @@
-import Joi from "joi";
+import Joi from 'joi';
 
-export const productSchema = {
+const productSchema = {
     POST: Joi.object({
         name: Joi.string().min(2).max(30).required(),
         description: Joi.string().min(50).max(500).required(),
@@ -14,3 +14,4 @@ export const productSchema = {
         categoryId: Joi.number().integer().optional(),
     }),
 };
+export default productSchema;

@@ -1,6 +1,6 @@
-import Joi from "joi";
+import Joi from 'joi';
 
-export const categorySchema = {
+const categorySchema = {
     POST: Joi.object({
         name: Joi.string().required(),
     }),
@@ -8,3 +8,4 @@ export const categorySchema = {
         name: Joi.string().optional(),
     }),
 };
+export default categorySchema;

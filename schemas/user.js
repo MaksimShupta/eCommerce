@@ -1,6 +1,6 @@
-import Joi from "joi";
+import Joi from 'joi';
 
-export const userSchema = {
+const userSchema = {
     POST: Joi.object({
         name: Joi.string().min(2).max(30).optional(),
         email: Joi.string().email().required(),
@@ -12,3 +12,4 @@ export const userSchema = {
         password: Joi.string().min(8).max(50).optional(),
     }),
 };
+export default userSchema;
