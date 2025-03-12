@@ -1,6 +1,6 @@
-import Joi from "joi";
+import Joi from 'joi';
 
-export const orderSchema = {
+const orderSchema = {
     POST: Joi.object({
         userId: Joi.number().integer().required(),
         products: Joi.array()
@@ -28,3 +28,4 @@ export const orderSchema = {
         total: Joi.number().precision(2).min(0).optional(),
     }),
 };
+export default orderSchema;

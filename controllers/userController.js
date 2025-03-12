@@ -1,4 +1,6 @@
 import models from '../models/index.js';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
 const { User } = models;
 export const getAllUsers = async (req, res) => {
@@ -82,29 +84,27 @@ export const deleteUser = async (req, res) => {
 };
 export const login = async (req, res) => {
     const { email, password } = req.body;
-
     try {
         // Find the User by email
-        const User = await User.findOne({ where: { email } });
+        const foundUser = await User.scope('withPassword').findOne({
+            where: { email },
+        });
 
-        if (!User) {
+        if (!foundUser) {
             return res.status(404).json({ message: 'User not found' });
         }
-
         // Check if the password is correct
-        const isMatch = await bcrypt.compare(password, User.password);
+        const isMatch = await bcrypt.compare(password, foundUser.password);
 
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
-
         // Generate JWT token
         const token = jwt.sign(
-            { id: User.id }, // Payload
+            { id: foundUser.id }, // Payload
             process.env.JWT_SECRET, // Secret key
-            { expiresIn: '1h' } // Optional: token expiration
+            { expiresIn: 3600000 } // Optional: token expiration
         );
-
         // Send token back to client
         res.json({ token });
     } catch (error) {
